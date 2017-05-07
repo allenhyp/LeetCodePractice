@@ -4,27 +4,13 @@ class Solution(object):
         :type x: int
         :rtype: int
         """
-        xStr = str(x)
         result = 0
-        end = -1
-        minus = False
-        if xStr[0] == '-':
-            end = 0
-            minus = True
-
-        for i in range(len(xStr) - 1, end, -1):
-            result = result * 10
-            result = result + int(xStr[i])
-
-        if minus:
-            result = - result
-            if result < -2147483648:
-                return 0
-            else:
-                return result
-        else:
-            if result > 2147483647:
-                return 0
-            else:
-                return result
+        flag = 1
+        if x < 0:
+            flag = -1
+            x = -x
+        while x >= 1:
+            result = result * 10 + x % 10
+            x = x / 10
+        return result * flag if -2147483648 <= result <= 2147483647 else 0
         

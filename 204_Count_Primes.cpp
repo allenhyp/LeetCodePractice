@@ -6,37 +6,15 @@ using namespace std;
 class Solution {
 public:
     int countPrimes(int n) {
-        int count = 0;
-        if (n > 2) 
-            count = 1;        
-        else
-            return 0;
-        int i = 3;                
-        vector<int> usedPrimes;
-        usedPrimes.push_back(2);
-        while (i < n) {
-            if (isPrime(i, usedPrimes))
-                count ++;
-            i += 2;
+        vector<bool> isPrime(n, true);
+        isPrime[0] = false, isPrime[1] = false;
+        for (int i = 0; i < sqrt(n); i++) {
+            if (isPrime[i]) {
+                for (int j = i * i; j < n; j += i) {
+                    isPrime[j] = false;
+                }
+            }
         }
-        return count;
-    }
-    bool isPrime(int d, vector<int>& primes) {
-        int squarRoot = sqrt(d);
-        for (vector<int>::iterator it = primes.begin(); *it <= squarRoot && it != primes.end(); ++it) {
-            if (d % *it == 0)
-                return false;
-        }
-        primes.push_back(d);
-        return true;
+        return count(isPrime.begin(), isPrime.end(), true);
     }
 };
-
-int main() {
-    Solution mySolution;
-    int input = 0;
-    cout << "INPUT: ";
-    cin >> input;
-    cout << "RESULT = " << mySolution.countPrimes(input) << endl;
-    return 0;
-}

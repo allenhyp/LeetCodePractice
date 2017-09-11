@@ -3,4 +3,5 @@ $ git status
 # Untracked files:
 testEnv/*
 testEnv/test*
-
+a.out
+*.json

@@ -9,17 +9,19 @@
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
-        if (!head) return NULL;
-        if (!head->next) return head;
-        int val = head->val;
-        ListNode* p = head->next;
-        if (p->val != val) {
-            head->next = deleteDuplicates(p);
-            return head;
+        if (!head || !head->next) return head;
+        ListNode** runner = &head;
+        while (*runner) {
+            if ((*runner)->next && (*runner)->val == (*runner)->next->val) {
+                while ((*runner)->next && (*runner)->val == (*runner)->next->val) {
+                    *runner = (*runner)->next;
+                }
+                *runner = (*runner)->next;
+            }
+            else {
+                runner = &((*runner)->next);
+            }
         }
-        else {
-            while (p && p->val == val) p = p->next;
-            return deleteDuplicates(p);
-        }
+        return head;
     }
 };

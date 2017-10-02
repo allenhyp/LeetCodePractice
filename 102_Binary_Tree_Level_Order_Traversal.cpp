@@ -37,3 +37,20 @@ public:
         return result;
     }
 };
+
+class Solution {
+public:
+    vector<vector<int>> result;
+    void builder(TreeNode* root, int depth) {
+        if (root == NULL) return;
+        if (result.size() == depth)
+            result.push_back(vector<int>());
+        result[depth].push_back(root->val);
+        builder(root->left, depth+1);
+        builder(root->right, depth+1);
+    }
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        builder(root, 0);
+        return result;
+    }
+};

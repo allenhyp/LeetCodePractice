@@ -2,7 +2,37 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
+#include <stack>
+#include <set>
 using namespace std;
+
+class Solution {
+    private:
+        unordered_map<int, vector<int>> moves{{0,{1,3}},{1,{0,2,4}},{2,{1,5}},{3,{0,4}},{4,{3,5,1}},{5,{4,2}}};
+    public:
+        int slidingPuzzle(vector<vector<int>>& board) {
+            string s = to_string(board[0][0]) + to_string(board[0][1]) + to_string(board[0][2]) 
+                        + to_string(board[1][0]) + to_string(board[1][1]) + to_string(board[1][2]);
+            int steps = 0;
+            unordered_set<string> m;
+            stack<pair<string, int>> st_1({{s, s.find('0')}}), st_2;
+            while (!st_1.empty() && st_1.top().first != "123450") {
+                for (auto new_zero : moves[st_1.top().second]) {
+                    auto str = st_1.top().first;
+                    swap(str[st_1.top().second], str[new_zero]);
+                    if (m.insert(str).second)
+                        st_2.push({str, new_zero});
+                }
+                st_1.pop();
+                if (st_1.empty()) {
+                    steps++;
+                    swap(st_1, st_2);
+                }
+            }
+            return st_1.empty() ? -1 : steps;
+        }
+};
+
 
 class Solution {
     unordered_map<int, vector<int>> moves{{0,{1,3}},{1,{0,2,4}},{2,{1,5}},{3,{0,4}},{4,{3,5,1}},{5,{4,2}}};
@@ -23,6 +53,8 @@ class Solution {
             return min_moves == INT_MAX ? -1 : min_moves;
         }
 };
+
+
 /*
 class Solution {
 private:

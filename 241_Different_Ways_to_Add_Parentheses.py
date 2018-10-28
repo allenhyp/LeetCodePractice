@@ -23,3 +23,21 @@ class Solution:
                 result += [self.worker(l, r, input[i])
                            for l in left for r in right]
         return result
+
+
+class Solution:
+    def diffWaysToCompute(self, input):
+        """
+        :type input: str
+        :rtype: List[int]
+        """
+        if input.isdigit():
+            return [int(input)]
+        result = []
+        for i in range(len(input)):
+            if input[i] in "+-*":
+                left = self.diffWaysToCompute(input[:i])
+                right = self.diffWaysToCompute(input[i+1:])
+                result += [(eval(str(l)+input[i]+str(r)))
+                           for l in left for r in right]
+        return result

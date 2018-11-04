@@ -20,3 +20,17 @@ class Solution(object):
                     new.append(dp[i-1][j])
             dp.append(new)
         return -1 if dp[k-1][amount] == sys.maxint else dp[k-1][amount]
+
+
+class Solution:
+    def coinChange(self, coins, amount):
+        """
+        :type coins: List[int]
+        :type amount: int
+        :rtype: int
+        """
+        maxima = float('inf')
+        dp = [0] + [maxima] * amount
+        for i in range(1, amount + 1):
+            dp[i] = min([dp[i - c] if i - c >= 0 else maxima for c in coins]) + 1
+        return [dp[-1], -1][dp[-1] == maxima]

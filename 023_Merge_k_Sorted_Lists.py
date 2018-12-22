@@ -39,4 +39,27 @@ class Solution:
         if len(lists) == 0:
             return None
         return self.split(lists, 0, len(lists))
+
+
+class Solution:
+    def mergeKLists(self, lists):
+        """
+        :type lists: List[ListNode]
+        :rtype: ListNode
+        """
+        from heapq import heapify, heappop, heapreplace
+        heap = [(head.val, i, head) for i, head in enumerate(lists) if head]
+        heapify(heap)
+        dummy = ListNode(0)
+        cur = dummy
+        while len(heap) > 0:
+            val, i, node = heap[0]
+            if not node.next:
+                heappop(heap)
+            else:
+                heapreplace(heap, (node.next.val, i, node.next))
+            cur.next = node
+            cur = cur.next
+        return dummy.next
+            
         

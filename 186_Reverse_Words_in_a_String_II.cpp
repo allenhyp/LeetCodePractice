@@ -6,11 +6,13 @@ using namespace std;
 class Solution {
 public:
     void reverseWords(vector<char>& str) { 
-        reverse(str.begin(), str.end());
-        for (auto i = str.begin(), j = i; i < str.end(); i = j + 1) {
-            for (j = i; j < str.end() && *j != ' '; ++j);
-            reverse(i, j);
+        for (int i = 0, j = 0; i <= str.size(); ++i) {
+            if (i == str.size() || str[i] == ' ') {
+                reverse(str.begin() + j, str.begin() + i);
+                j = i + 1;
+            }
         }
+        reverse(str.begin(), str.end());
     }
 };
 

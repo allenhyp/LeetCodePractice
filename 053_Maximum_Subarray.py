@@ -1,4 +1,16 @@
 class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        size = len(nums)
+        if size == 1:
+            return nums[0]
+        dp = [0] * size
+        dp[0] = nums[0]
+        for i in range(1, size):
+            dp[i] = nums[i] + (dp[i - 1] if dp[i - 1] > 0 else 0)
+        return max(dp)
+
+
+class Solution:
     def maxCrossSectionSum(self, nums, l, m, r):
         cur_sum, l_max = 0, -sys.maxsize - 1
         for i in range(m, l - 1, -1):

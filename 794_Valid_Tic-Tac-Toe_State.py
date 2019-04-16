@@ -25,7 +25,7 @@ class Solution:
         o_num = 0
         w_num = 0.
         for b in board:
-            state.append(list(b));
+            state.append(list(b))
         for s in state:
             for ss in s:
                 if ss == 'X':

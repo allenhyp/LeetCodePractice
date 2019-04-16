@@ -1,3 +1,21 @@
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        T = '#'.join('@{}%'.format(s))
+        n, C, R = len(T), 0, 0
+        P = [0] * n
+        for i in range(1, n - 1):
+            P[i] = min(R - i, P[C - (i - C)]) if R > i else 0
+            while T[i + 1 + P[i]] == T[i - 1 - P[i]]:
+                P[i] += 1
+            if i + P[i] > R:
+                C, R = i, i + P[i]
+        maxLen, center = 0, 0
+        for i, p in enumerate(P):
+            if p > maxLen:
+                maxLen, center = p, i
+        return s[(center - maxLen) // 2 : (center + maxLen) // 2]
+
+
 class Solution(object):
     def longestPalindrome(self, s):
         """

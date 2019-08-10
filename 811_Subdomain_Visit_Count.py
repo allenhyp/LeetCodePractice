@@ -4,26 +4,21 @@ class Solution:
         :type cpdomains: List[str]
         :rtype: List[str]
         """
-        domains = {}
-        for s in cpdomains:
-            t = s.split(' ')
-            cnt = int(t[0])
-            d = t[1].split('.')
-            p = d[-1]
-            for i in range(len(d) - 2, -1, -1):
-                if p not in domains:
-                    domains[p] = cnt
-                else:
-                    domains[p] += cnt
-                p = d[i] + '.' + p
-            if p not in domains:
-                domains[p] = cnt
-            else:
-                domains[p] += cnt
-        result = []
-        for key in domains.keys():
-            result.append("{0} {1}".format(domains[key], key))
-        return result
+        dic = {}
+        for cpdomain in cpdomains:
+            parser = cpdomain.split(' ')
+            num, domain_str = int(parser[0]), parser[1]
+            domains = domain_str.split('.')
+            domain = domains[-1]
+            dic[domain] = dic.get(domain, 0) + num
+            for i in range(len(domains) - 2, -1, -1):
+                domain = domains[i] + '.' + domain
+                dic[domain] = dic.get(domain, 0) + num
+        
+        res = []
+        for key, val in dic.items():
+            res.append("{0} {1}".format(key, val))
+        return res
 
 
 def main():

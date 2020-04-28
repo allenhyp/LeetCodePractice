@@ -19,3 +19,19 @@ class Solution:
             root.right = construct(key, maximum)
             return root
         return construct(float('-inf'), float('inf'))
+
+
+class Solution:
+    def bstFromPreorder(self, preorder: List[int]) -> TreeNode:
+        def helper(arr):
+            if not arr: return None
+            root = TreeNode(arr[0])
+            index = 0
+            for i in range(len(arr)):
+                if arr[i] > root.val:
+                    break
+                index += 1
+            root.left = helper(arr[1:index])
+            root.right = helper(arr[index:])
+            return root
+        return helper(preorder)

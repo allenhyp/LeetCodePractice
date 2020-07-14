@@ -18,7 +18,6 @@ class Solution:
             if p.val == total:
                 return p
 
-
 class Solution:
     def findRoot(self, tree: List['Node']) -> 'Node':
         seen = set()

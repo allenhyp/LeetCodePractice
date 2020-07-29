@@ -1,11 +1,6 @@
-class Solution(object):
-    def leastInterval(self, tasks, n):
-        """
-        :type tasks: List[str]
-        :type n: int
-        :rtype: int
-        """
-        tasks_count = collections.Counter(tasks).values()
-        M = max(tasks_count)
-        Mct = tasks_count.count(M)
-        return max(len(tasks), (M - 1) * (n + 1) + Mct)
+class Solution:
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        task_cnt = list(collections.Counter(tasks).values())
+        max_cnt = max(task_cnt)
+        max_tasks = task_cnt.count(max_cnt)
+        return max(len(tasks), (max_cnt - 1) * (n + 1) + max_tasks)

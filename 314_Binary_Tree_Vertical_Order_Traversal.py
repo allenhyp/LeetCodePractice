@@ -26,3 +26,27 @@ class Solution:
         for _, item in sorted(dic.items()):
             res.append(item)
         return res
+
+class Solution:
+    def verticalTraversal(self, root: TreeNode) -> List[List[int]]:
+        nodes = []
+        def dfs(node, row, col):
+            if node is not None:
+                nodes.append((col, row, node.val))
+                dfs(node.left, row + 1, col - 1)
+                dfs(node.right, row + 1, col + 1)
+        dfs(root, 0, 0)
+        
+        res = []
+        nodes.sort()
+        idx = nodes[0][0]
+        cur = []
+        for col, row, val in nodes:
+            if col == idx:
+                cur.append(val)
+            else:
+                res.append(cur)
+                idx = col
+                cur = [val]
+        res.append(cur)
+        return res

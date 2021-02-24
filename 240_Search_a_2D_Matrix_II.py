@@ -20,3 +20,14 @@ class Solution:
                 row += 1
             return searchRec(row, bottom, left, mid - 1) or searchRec(top, row - 1, mid + 1, right)
         return searchRec(0, len(matrix) - 1, 0, len(matrix[0]) - 1)
+
+
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        j = -1
+        for row in matrix:
+            while j + len(row) and row[j] > target:
+                j -= 1
+            if row[j] == target:
+                return True
+        return False

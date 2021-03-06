@@ -11,17 +11,26 @@ class Node(object):
 
 class Solution(object):
     def union(self, x, y):
+        '''
+        Function for merging 2 nodes's parents
+        '''
         parentX, parentY = self.find(x), self.find(y)
         if parentX != parentY:
             parentX.parent = parentY
             parentY.size += parentX.size
 
     def find(self, x):
+        '''
+        Function for finding the parent of the node.
+        '''
         if x.parent != x:
             x.parent = self.find(x.parent)
         return x.parent
 
     def cloudFrontCaching(self, n, edges) -> int:
+        '''
+        Main function for execution.
+        '''
         total = 0
         nodes = [None]
         for i in range(1, n + 1):

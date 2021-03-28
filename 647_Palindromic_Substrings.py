@@ -9,3 +9,17 @@ class Solution:
                 if dp[i][j]:
                     res += 1
         return res
+
+
+class Solution:
+    def countSubstrings(self, s: str) -> int:
+        n = len(s)
+        res = 0
+        for i in range(n):
+            left = right = i
+            while left >= 0 and right < n and s[left] == s[right]:
+                res, left, right = res + 1, left - 1, right + 1
+            left, right = i - 1, i
+            while left >= 0 and right < n and s[left] == s[right]:
+                res, left, right = res + 1, left - 1, right + 1
+        return res

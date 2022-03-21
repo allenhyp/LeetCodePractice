@@ -1,6 +1,7 @@
 $ git status
 
 # Untracked files:
+.DS_Store
 testEnv/*
 testEnv/test*
 a.out

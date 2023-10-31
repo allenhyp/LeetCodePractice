@@ -11,3 +11,13 @@ class Solution:
                 return False
             left, right = left + 1, right - 1
         return True
+
+
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        clean = []
+        for c in s.lower():
+            if c.isalnum():
+                clean.append(c)
+        size = len(clean)
+        return clean[:size//2] == clean[-1:(size-1)//2:-1]

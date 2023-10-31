@@ -21,3 +21,18 @@ class Solution(object):
             return True
         else:
             return False
+
+
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        mapping = {')': '(', ']': '[', '}': '{'}
+        for p in s:
+            if p in '([{':
+                stack.append(p)
+            else:
+                if len(stack) == 0 or stack[-1] != mapping[p]:
+                    return False
+                else:
+                    stack.pop()             
+        return len(stack) == 0

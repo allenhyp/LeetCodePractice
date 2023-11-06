@@ -40,3 +40,13 @@ class Solution:
         :rtype: int
         """
         return self.maxSubArraySum(nums, 0, len(nums) - 1)
+
+
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        curMax, maxTillNow = 0, -inf
+        for i in range(len(nums)):
+            curMax = max(nums[i], nums[i] + curMax)
+            maxTillNow = max(maxTillNow, curMax)
+            
+        return maxTillNow

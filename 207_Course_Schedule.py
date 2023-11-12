@@ -1,3 +1,33 @@
+# DFS
+from collections import defaultdict
+class Solution:
+    def hasNoCycle(self, v):
+        self.visited[v] = True
+        self.recStack[v] = True
+        for u in self.prereqs[v]:
+            if not self.visited[u]:
+                if not self.hasNoCycle(u):
+                    return False
+            elif self.recStack[u]:
+                return False
+        self.recStack[v] = False
+        return True
+            
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        self.visited, self.recStack = {v: False for v in range(numCourses)}, {v: False for v in range(numCourses)}
+        self.prereqs = defaultdict(list)
+        for v, u in prerequisites:
+            self.prereqs[u].append(v)
+        
+        for v in range(numCourses):
+            if self.visited[v]:
+                continue
+            if not self.hasNoCycle(v):
+                return False
+        return True
+
+
+# Topological sort (BFS)
 class Solution:
     def buildGraph(self, n, pre):
         graph = [[] for _ in range(n)]

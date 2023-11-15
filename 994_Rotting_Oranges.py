@@ -1,4 +1,31 @@
 class Solution:
+    def orangesRotting(self, grid: List[List[int]]) -> int:
+        m, n = len(grid), len(grid[0])
+        fresh, curr = set(), set()
+        for r in range(m):
+            for c in range(n):
+                if grid[r][c] == 1:
+                    fresh.add((r, c))
+                elif grid[r][c] == 2:
+                    curr.add((r, c))
+        
+        count = 0
+        while True:
+            next = set()
+            for r, c in curr:
+                for dr, dc in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
+                    nr, nc = r + dr, c + dc
+                    if 0 <= nr < m and 0 <= nc < n and (nr, nc) in fresh:
+                        fresh.remove((nr, nc))
+                        next.add((nr, nc))
+            if len(next) == 0:
+                break
+            count += 1
+            curr = next
+        return count if len(fresh) == 0 else -1
+
+
+class Solution:
     def orangesRotting(self, grid: 'List[List[int]]') -> 'int':
         m, n = len(grid), len(grid[0])
         def infection(grid, i, j, time):

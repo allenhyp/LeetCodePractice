@@ -1,4 +1,5 @@
 class Solution:
+    # dynamic programming
     def __init__(self):
         return
 
@@ -19,6 +20,24 @@ class Solution:
                         dp[i].append(temp + [c])
         return dp[target]
 
+
+class Solution:
+    # DFS (Backtracking)
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        ret = []
+        def dfs(i, curr, total):
+            if total == target:
+                ret.append(curr.copy())
+                return
+            if total > target or i >= len(candidates):
+                return
+            curr.append(candidates[i])
+            dfs(i, curr, total + candidates[i])
+            curr.pop()
+            dfs(i + 1, curr, total)
+            return
+        dfs(0, [], 0)
+        return ret
 
 def __main__():
     mySolution = Solution()

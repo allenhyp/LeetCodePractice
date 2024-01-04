@@ -1,22 +1,26 @@
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         m, n = len(board), len(board[0])
-        def dfs(i, j, k):
-            if 0 <= i < m and 0 <= j < n:
-                if board[i][j] == word[k]:
-                    if k == len(word) - 1:
-                        return True
-                    result = False
-                    temp = board[i][j]
-                    board[i][j] = '*'
-                    for di, dj in [[1, 0], [0, 1], [-1, 0], [0, -1]]:
-                        result |= dfs(i + di, j + dj, k + 1)
-                    board[i][j] = temp
-                    return result
+        def dfs(r, c, index, visited):
+            if not (0 <= r < m and 0 <= c < n):
+                return False
+            if (r, c) in visited:
+                return False
+            if board[r][c] == word[index]:
+                if index == len(word) - 1:
+                    return True
+                
+                visited.add((r, c))
+                ret = False
+                for dr, dc in [(-1, 0), (0, -1), (1, 0), (0, 1)]:
+                    ret |= dfs(r + dr, c + dc, index + 1, visited)
+                visited.remove((r,c))
+                return ret
+
             return False
-        
-        for i in range(m):
-            for j in range(n):
-                if dfs(i, j, 0):
+
+        for r in range(m):
+            for c in range(n):
+                if dfs(r, c, 0, set()):
                     return True
         return False

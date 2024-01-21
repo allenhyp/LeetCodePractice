@@ -1,5 +1,24 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
+        height = [0] + height + [0]
+        n = len(height)
+        max_left = max_right = 0
+        left, right = [0] * n, [0] * n
+        for i in range(1, n - 1):
+            left[i] = max_left
+            max_left = max(max_left, height[i])
+        for i in range(n - 2, 0, -1):
+            right[i] = max_right
+            max_right = max(max_right, height[i])
+
+        ret = 0
+        for i in range(n):
+            ret += max(0, min(left[i], right[i]) - height[i])
+        return ret
+
+
+class Solution:
+    def trap(self, height: List[int]) -> int:
         stack, res = [], 0
         for i in range(len(height)):
             while stack and height[i] > height[stack[-1]]:

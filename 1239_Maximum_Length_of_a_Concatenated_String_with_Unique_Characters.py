@@ -1,10 +1,15 @@
 class Solution:
     def maxLength(self, arr: List[str]) -> int:
-        dp = [set()]
-        for a in arr:
-            if len(set(a)) < len(a): continue
-            a = set(a)
-            for c in dp[:]:
-                if a & c: continue
-                dp.append(a | c)
-        return max(len(s) for s in dp)
+        unique = []
+        for s in arr:
+            u = set(s)
+            if len(u) == len(s):
+                unique.append(u)
+        
+        concat = [set()]
+        for u in unique:
+            for c in concat:
+                if not u & c:
+                    concat.append(u | c)
+        
+        return max([len(c) for c in concat])

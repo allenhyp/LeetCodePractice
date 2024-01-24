@@ -26,3 +26,32 @@ class Solution:
         if num != 0:
             res += sign * num
         return res
+
+
+class Solution:
+    def calculate(self, s: str) -> int:
+        ret, _ = self.helper(s, 0)
+        return ret
+
+    def helper(self, s, i):
+        curr = 0
+        sign = 1
+        temp = 0
+        while i < len(s):
+            if s[i].isdigit():
+                temp = temp * 10 + int(s[i])
+            else:
+                if temp != 0:
+                    curr += sign * temp
+                    temp = 0
+
+                if s[i] == '+':
+                    sign = 1
+                elif s[i] == '-':
+                    sign = -1
+                elif s[i] == '(':
+                    temp, i = self.helper(s, i+1)
+                elif s[i] == ')':
+                    break
+            i += 1
+        return curr + sign * temp, i

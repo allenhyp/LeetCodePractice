@@ -20,3 +20,20 @@ class Solution:
             max_area = max(max_area, heights[i] * (less_from_right[i] - less_from_left[i] - 1))
         
         return max_area
+
+
+# monostack
+class Solution:
+    def largestRectangleArea(self, heights: List[int]) -> int:
+        stack = []
+        maxArea = 0
+        heights.append(0)
+        for i in range(len(heights)):
+            while stack and heights[stack[-1]] >= heights[i]:
+                # We need to extract some stuffs from our stack,
+                # until it becomes increasing one.
+                h = heights[stack.pop()]
+                w = (i - 1 - stack[-1]) if stack else i
+                maxArea = max(maxArea, h * w)
+            stack.append(i)
+        return maxArea

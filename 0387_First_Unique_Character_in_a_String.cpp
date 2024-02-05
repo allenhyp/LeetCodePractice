@@ -1,7 +1,7 @@
 class Solution {
 public:
     int firstUniqChar(string s) {
-        // For large string: traverse string once and the map onece.
+        // For large string: traverse string once and the map once.
         unordered_map<char, pair<int, int>> m;
         int idx = s.size();
         for (int i = 0; i < idx; i++) {

@@ -1,6 +1,19 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
+        int counter = 1, major = nums[0];
+        for (int i = 1; i < nums.size(); i++) {
+            if (counter == 0) major = nums[i];
+            counter += nums[i] == major ? 1 : -1;
+        }
+        return major;
+    }
+};
+
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
         int n = nums.size();
         if (nums.size() < 1) return 0;
         return majority(nums, 0, n - 1);

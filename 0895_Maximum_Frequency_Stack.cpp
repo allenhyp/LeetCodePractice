@@ -1,3 +1,4 @@
+// 2 maps
 class FreqStack {
 public:
     unordered_map<int, int> freqs;
@@ -17,6 +18,28 @@ public:
         int ret = stacks[maj].top(); stacks[maj].pop();
         freqs[ret]--;
         if (stacks[maj].size() == 0) maj--;
+        return ret;
+    }
+};
+
+// Priority queue
+class FreqStack {
+public:
+    priority_queue<pair<int, pair<int, int>>> pq;
+    unordered_map<int, int> freq;
+    int pos = 0;
+    FreqStack() {
+
+    }
+    
+    void push(int val) {
+        pq.emplace(make_pair(++freq[val], make_pair(pos++, val)));
+    }
+    
+    int pop() {
+        auto item = pq.top(); pq.pop();
+        int ret = item.second.second;
+        freq[ret]--;
         return ret;
     }
 };

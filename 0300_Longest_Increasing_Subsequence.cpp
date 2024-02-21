@@ -1,3 +1,4 @@
+// Dynamic programming
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
@@ -21,16 +22,17 @@ public:
 };
 
 
+// Binary search substitution for first number greater than the one searching to greedily find the best sequence
 class Solution {
 public:
     int lengthOfLIS(vector<int>& nums) {
-        vector<int> res;
-        for (int num : nums) {
-            auto it = lower_bound(res.begin(), res.end(), num);
-            if (it == res.end()) res.push_back(num);
-            else *it = num;
+        vector<int> sub ({nums[0]});
+        for (int i = 1; i < nums.size(); i++) {
+            if (nums[i] > sub.back())
+                sub.push_back(nums[i]);
+            else 
+                sub[lower_bound(sub.begin(), sub.end(), nums[i]) - sub.begin()] = nums[i];
         }
-        
-        return res.size();
+        return sub.size();
     }
 };

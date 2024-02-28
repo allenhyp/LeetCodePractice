@@ -26,3 +26,21 @@ public:
         return left_val;
     }
 };
+
+
+class Solution {
+public:
+    int findBottomLeftValue(TreeNode* root) {
+        vector<TreeNode*> row ({root});
+        while (!row.empty()) {
+            vector<TreeNode*> next;
+            for (TreeNode* node : row) {
+                if (node->left != nullptr) next.push_back(node->left);
+                if (node->right != nullptr) next.push_back(node->right);
+            }
+            if (next.empty()) return row[0]->val;
+            row = next;
+        }
+        return INT_MIN;
+    }
+};

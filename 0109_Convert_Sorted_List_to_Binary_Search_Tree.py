@@ -32,3 +32,37 @@ class Solution:
     def sortedListToBST(self, head: ListNode) -> TreeNode:
         self.node = head
         return self.generate(self.getLen(head))
+
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def findMid(self, head):
+        slow = fast = head
+        pre = slow
+        while fast and fast.next:
+            pre = slow
+            slow = slow.next
+            fast = fast.next.next
+
+        return pre, slow
+
+    def sortedListToBST(self, head: Optional[ListNode]) -> Optional[TreeNode]:
+        if not head:
+            return None
+        pre, mid = self.findMid(head)
+        root = TreeNode(mid.val)
+        pre.next = None
+        if mid != head:
+            root.left = self.sortedListToBST(head)
+        root.right = self.sortedListToBST(mid.next)
+        return root

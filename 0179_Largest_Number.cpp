@@ -1,9 +1,9 @@
 class Solution {
-private:
+public:
     static bool compare(string a, string b) {
         return a + b > b + a;
     }
-public:
+    
     string largestNumber(vector<int>& nums) {
         vector<string> numstr;
         string res = "";
